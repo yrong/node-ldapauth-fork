@@ -26,9 +26,42 @@
 
 # node-ldapauth Changelog
 
-## 2.2.3 (not yet released)
+## 2.3.0 (not yet released)
 
-(nothing yet)
+- Rewrite ldapjs connection handling. We now do retries. We now bind
+  up front. The connect/bind check to verify a found user's password
+  (in `.authenticate()`) creates a new connection each time. A significant
+  usage change here is that one should wait for the 'connect' event
+  from the `LdapAuth` instance before using it:
+
+        var LdapAuth = require('ldapauth');
+        var auth = new LdapAuth({url: 'ldaps://ldap.example.com:663', ...});
+ 
+        // If you want to be lazier you can skip waiting for 'connect'. :)
+        // It just means that a quick `.authenticate()` call will likely fail
+        // while the LDAP connect and bind is still being done.
+        auth.once('connect', function () {
+            ...
+            auth.authenticate(username, password, function (err, user) { ... });
+            ...
+            auth.close(function (err) { ... })
+        });
+
+  There is a lot new here, so caveat usor.
+
+- Drop log4js support in favour of Bunyan.
+
+- 4-space code indents. Should be no functional change.
+
+
+## 2.2.4
+
+- [pull #12] Add `tlsOptions`, `timeout` and `connectTimeout` options in `LdapAuth`
+  constructor (by github.com/vesse).
+
+## 2.2.3
+
+- [pull #11] Update to latest ldapjs, v0.6.3 (by github.com/Esya).
 
 
 ## 2.2.2
@@ -64,5 +97,3 @@
 ## 1.0.2
 
 First working version.
-
-

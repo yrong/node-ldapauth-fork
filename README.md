@@ -10,17 +10,16 @@ module is updated I will likely deprecate the fork.
 
 Changes in this fork include:
 
-* ldapjs upgraded from 0.5.6 to 0.6.3 ([#11](https://github.com/trentm/node-ldapauth/issues/11), [#12](https://github.com/trentm/node-ldapauth/issues/12))
 * use global search/replace of `{{username}}` ([#10](https://github.com/trentm/node-ldapauth/issues/10))
-* enable defining timeouts ([#12](https://github.com/trentm/node-ldapauth/issues/12))
 * enable defining attributes to return from LDAP server ([#8](https://github.com/trentm/node-ldapauth/issues/10))
 * enable anonymous binding ([#2](https://github.com/trentm/node-ldapauth/issues/2))
+    * **TODO:** Not implemented in the 2.3.x fork yet
 * enable defining seach scope
 * clients are unbound in `close()` ([#3](https://github.com/trentm/node-ldapauth/issues/3))
+    * **TODO:** Verify with 2.3.x once upstream is released
 * `bcrypt` is an optional dependency ([#13](https://github.com/trentm/node-ldapauth/pull/13), also affects [#9](https://github.com/trentm/node-ldapauth/issues/9))
 
-The additional options the changes above introduce are `searchScope`, `searchAttributes`,
-`timeout`, `connectTimeout`, and `tlsOptions`. From the original options `adminDn` and `adminPassword` are now optional.
+The additional options the changes above introduce are `searchScope` and `searchAttributes`. From the original options `adminDn` and `adminPassword` are now optional.
 
 ## Usage
 
@@ -48,7 +47,7 @@ MIT. See "LICENSE" file.
 
 ## `LdapAuth` Config Options
 
-[Use the source Luke](https://github.com/vesse/node-ldapauth-fork/blob/master/lib/ldapauth.js#L25-57)
+[Use the source Luke](https://github.com/vesse/node-ldapauth-fork/blob/master/lib/ldapauth.js#L56-87)
 
 
 ## express/connect basicAuth example
