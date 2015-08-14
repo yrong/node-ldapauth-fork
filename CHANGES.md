@@ -1,5 +1,9 @@
 # node-ldapauth-fork Changelog
 
+## 2.3.3
+
+- [issue #20] Sanitize user input
+
 ## 2.3.2
 
 - [issue #19] Added messages to options asserts
