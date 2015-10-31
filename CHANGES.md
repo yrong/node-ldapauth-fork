@@ -1,5 +1,9 @@
 # node-ldapauth-fork Changelog
 
+## 2.4.0
+
+- Update ldapjs to 1.0.0 (fixes #25)
+
 ## 2.3.3
 
 - [issue #20] Sanitize user input
