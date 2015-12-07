@@ -1,5 +1,9 @@
 # node-ldapauth-fork Changelog
 
+## 2.5.0
+
+- Falsy values in bind credentials now passed on to ldapjs (fixes #27)
+
 ## 2.4.0
 
 - Update ldapjs to 1.0.0 (fixes #25)
