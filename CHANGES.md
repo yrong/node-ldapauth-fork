@@ -1,5 +1,9 @@
 # node-ldapauth-fork Changelog
 
+## 2.5.1
+
+- [pull request #33] Check user provided password is not falsy (fixes #32)
+
 ## 2.5.0
 
 - Falsy values in bind credentials now passed on to ldapjs (fixes #27)
