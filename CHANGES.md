@@ -1,5 +1,9 @@
 # node-ldapauth-fork Changelog
 
+## 2.5.2
+
+- [pull request #31] Forward reconnect option to ldapjs
+
 ## 2.5.1
 
 - [pull request #33] Check user provided password is not falsy (fixes #32)
