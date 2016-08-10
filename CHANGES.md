@@ -1,5 +1,9 @@
 # node-ldapauth-fork Changelog
 
+## 2.5.3
+
+- [pull request #36] `groupSearchFilter` can be a `function(user)` returning the actual filter
+
 ## 2.5.2
 
 - [pull request #31] Forward reconnect option to ldapjs
