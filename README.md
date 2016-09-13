@@ -15,6 +15,9 @@ var options = {
     ...
 };
 var auth = new LdapAuth(options);
+auth.on('error', function (err) {
+    console.error('LdapAuth: ', err);
+});
 ...
 auth.authenticate(username, password, function(err, user) { ... });
 ...
