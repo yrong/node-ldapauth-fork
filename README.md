@@ -39,36 +39,36 @@ MIT. See "LICENSE" file.
 ## express/connect basicAuth example
 
 ```javascript
-var connect = require('connect');
+var basicAuth = require('basic-auth');
 var LdapAuth = require('ldapauth-fork');
 
-// Config from a .json or .ini file or whatever.
-var config = {
-  ldap: {
-    url: "ldaps://ldap.example.com:636",
-    bindDn: "uid=myadminusername,ou=users,o=example.com",
-    bindCredentials: "mypassword",
-    searchBase: "ou=users,o=example.com",
-    searchFilter: "(uid={{username}})"
-  }
-};
-
 var ldap = new LdapAuth({
-  url: config.ldap.url,
-  bindDn: config.ldap.bindDn,
-  bindCredentials: config.ldap.bindCredentials,
-  searchBase: config.ldap.searchBase,
-  searchFilter: config.ldap.searchFilter,
-  //log4js: require('log4js'),
-  cache: true
+  url: "ldaps://ldap.example.com:636",
+  bindDn: "uid=myadminusername,ou=users,o=example.com",
+  bindCredentials: "mypassword",
+  searchBase: "ou=users,o=example.com",
+  searchFilter: "(uid={{username}})"
 });
 
-var basicAuthMiddleware = connect.basicAuth(function (username, password, callback) {
-  ldap.authenticate(username, password, function (err, user) {
+var rejectBasicAuth = function(res) {
+  res.statusCode = 401;
+  res.setHeader('WWW-Authenticate', 'Basic realm="Example"');
+  res.end('Access denied');
+}
+
+var basicAuthMiddleware = function(req, res, next) {
+  var credentials = basicAuth(req);
+  if (!credentials) {
+    return rejectBasicAuth(res);
+  }
+
+  ldap.authenticate(credentials.name, credentials.pass, function(err, user) {
     if (err) {
-      console.log("LDAP auth error: %s", err);
+      return rejectBasicAuth(res);
     }
-    callback(err, user)
+
+    req.user = user;
+    next();
   });
-});
+};
 ```
