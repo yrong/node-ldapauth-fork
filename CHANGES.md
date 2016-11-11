@@ -1,5 +1,9 @@
 # node-ldapauth-fork Changelog
 
+## 2.5.4
+
+- [pull request #42] Update ldapjs to 1.0.1 (and use ~ in package.json for it)
+
 ## 2.5.3
 
 - [pull request #36] `groupSearchFilter` can be a `function(user)` returning the actual filter
