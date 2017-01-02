@@ -11,12 +11,12 @@ Multiple [ldapjs](http://ldapjs.org/) client options have been made available.
 ```javascript
 var LdapAuth = require('ldapauth-fork');
 var options = {
-    url: 'ldaps://ldap.example.com:636',
-    ...
+  url: 'ldaps://ldap.example.com:636',
+  ...
 };
 var auth = new LdapAuth(options);
 auth.on('error', function (err) {
-    console.error('LdapAuth: ', err);
+  console.error('LdapAuth: ', err);
 });
 ...
 auth.authenticate(username, password, function(err, user) { ... });
@@ -50,7 +50,8 @@ var ldap = new LdapAuth({
   bindDn: "uid=myadminusername,ou=users,o=example.com",
   bindCredentials: "mypassword",
   searchBase: "ou=users,o=example.com",
-  searchFilter: "(uid={{username}})"
+  searchFilter: "(uid={{username}})",
+  reconnect: true
 });
 
 var rejectBasicAuth = function(res) {
