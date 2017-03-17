@@ -1,5 +1,9 @@
 # node-ldapauth-fork Changelog
 
+## 3.0.1
+
+- [pull request #44] Two more ldapjs options passthrough
+
 ## 3.0.0
 
 - [issues #20, #39, #25, #26, #41] LdapAuth is now inheriting EventEmitter and re-emits ldapjs error events. This should solve crashing because of network issues or such. Other ldapjs events are not emitted.
