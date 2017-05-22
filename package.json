@@ -16,9 +16,9 @@
     "type": "git",
     "url": "git://github.com/vesse/node-ldapauth-fork.git"
   },
-  "engines": [
-    "node >=0.8.0"
-  ],
+  "engines": {
+    "node": ">=0.8.0"
+  },
   "dependencies": {
     "@types/ldapjs": "^1.0.0",
     "@types/node": "^7.0.21",
