@@ -2,6 +2,7 @@
   "name": "ldapauth-fork",
   "version": "3.0.1",
   "main": "./lib/ldapauth.js",
+  "types": "./types/ldapauth.d.ts",
   "description": "Authenticate against an LDAP server",
   "author": "Vesa Poikajärvi <vesa.poikajarvi@iki.fi>",
   "license": "MIT",
@@ -19,6 +20,8 @@
     "node >=0.8.0"
   ],
   "dependencies": {
+    "@types/ldapjs": "^1.0.0",
+    "@types/node": "^7.0.21",
     "bcryptjs": "2.4.0",
     "ldapjs": "~1.0.1",
     "lru-cache": "4.0.2"
