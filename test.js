@@ -13,8 +13,8 @@ var log = new Logger({
 
 var opts = {
   "url": "ldap://ldap.forumsys.com:389",
-  "adminDn": "cn=read-only-admin,dc=example,dc=com",
-  "adminPassword": "password",
+  "bindDN": "cn=read-only-admin,dc=example,dc=com",
+  "bindCredentials": "password",
   "searchBase": "dc=example,dc=com",
   "searchFilter": "(uid={{username}})",
   "log": log
