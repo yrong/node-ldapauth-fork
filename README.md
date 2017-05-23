@@ -72,7 +72,6 @@ Optional ldapjs options, see [ldapjs documentation]:
 
   - `tlsOptions` - Needed for TLS connection. See [Node.js documentation](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback)
   - `socketPath`
-  - `log`
   - `timeout`
   - `connectTimeout`
   - `idleTimeout`
