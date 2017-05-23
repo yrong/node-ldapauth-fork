@@ -40,8 +40,47 @@ MIT. See "LICENSE" file.
 
 ## `LdapAuth` Config Options
 
-[Use the source Luke](https://github.com/vesse/node-ldapauth-fork/blob/master/lib/ldapauth.js#L35-L99)
+Required ldapjs client options:
 
+  - `url` - LDAP server URL, eg. *ldaps://ldap.example.com:663*
+
+ldapauth-fork options:
+
+  - `bindDn` - Admin connection DN, e.g. 'uid=myapp,ou=users,o=example.com'. Optional. If not given at all, admin client is not bound. Giving empty string may result in anonymous bind when allowed.
+  - `bindCredentials` - Password for bindDn.
+  - `searchBase` - The base DN from which to search for users by username. E.g. *ou=users,o=example.com*
+  - `searchFilter` - LDAP search filter with which to find a user by username, e.g. *(uid={{username}})*. Use the literal *{{username}}* to have the given username be interpolated in for the LDAP search.
+  - `searchAttributes` - Optional, default all. Array of attributes to fetch from LDAP server.
+  - `bindProperty` - Optional, default *dn*. Property of user to bind against client e.g. *name*, *email*
+  - `searchScope` -  Optional, default *sub*. Scope of the search, one of *base*, *one*, or *sub*.
+
+ldapauth-fork options can look for valid users groups too. Related options:
+
+  - `groupSearchBase` - Optional. The base DN from which to search for groups. If defined, also `groupSearchFilter` must be defined for the search to work.
+  - `groupSearchFilter` - Optional. LDAP search filter for groups. Place literal *{{dn}}* in the filter to have it replaced by the property defined with `groupDnProperty` of the found user object. Optionally you can also assign a function instead. The found user is passed to the function and it should return a valid search filter for the group search.
+  - `groupSearchAttributes` - Optional, default all. Array of attributes to fetch from LDAP server.
+  - `groupDnProperty` - Optional, default *dn*. The property of user object to use in *{{dn}}* interpolation of `groupSearchFilter`.
+  - `groupSearchScope` - Optional, default *sub*.
+
+Other ldapauth-fork options:
+
+  - `includeRaw` - Optional, default false. Set to true to add property `_raw` containing the original buffers to the returned user object. Useful when you need to handle binary attributes
+  - `cache` - Optional, default false. If true, then up to 100 credentials at a time will be cached for 5 minutes.
+  - `log` - Bunyan logger instance, optional. If given this will result in TRACE-level error logging for component:ldapauth. The logger is also passed forward to ldapjs.
+
+Optional ldapjs options, see [ldapjs documentation]:
+
+  - `tlsOptions` - Needed for TLS connection. See [Node.js documentation](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback)
+  - `socketPath`
+  - `log`
+  - `timeout`
+  - `connectTimeout`
+  - `idleTimeout`
+  - `reconnect`
+  - `strictDN`
+  - `queueSize`
+  - `queueTimeout`
+  - `queueDisable`
 
 ## express/connect basicAuth example
 

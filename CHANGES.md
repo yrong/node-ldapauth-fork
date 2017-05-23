@@ -1,5 +1,12 @@
 # node-ldapauth-fork Changelog
 
+## 4.0.0
+
+- Added TypeScript types
+- Switch to Bunyan logger since ldapjs uses Bunyan as well
+- Pass all ldapjs client options to it. The available options were taken from the ldapjs TypeScript types.
+- Encourage `bindDN`, also because what ldapjs does
+
 ## 3.0.1
 
 - [pull request #44] Two more ldapjs options passthrough
