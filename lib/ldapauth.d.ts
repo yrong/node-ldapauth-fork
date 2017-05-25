@@ -22,14 +22,24 @@ declare namespace LdapAuth {
 
     interface Options extends ClientOptions {
         /**
+         * Admin connection DN, e.g. uid=myapp,ou=users,dc=example,dc=org.
+         * If not given at all, admin client is not bound. Giving empty
+         * string may result in anonymous bind when allowed
+         */
+        bindDN?: string;
+        /**
+         * Password for bindDN
+         */
+        bindCredentials?: string;
+        /**
          * The base DN from which to search for users by username.
-         * E.g. 'ou=users,o=example.com'
+         * E.g. ou=users,dc=example,dc=org
          */
         searchBase: string;
         /**
          * LDAP search filter with which to find a user by username, e.g.
-         * '(uid={{username}})'. Use the literal '{{username}}' to have the
-         * given username be interpolated in for the LDAP search.
+         * (uid={{username}}). Use the literal {{username}} to have the
+         * given username interpolated in for the LDAP search.
          */
         searchFilter: string;
         /**
@@ -47,15 +57,15 @@ declare namespace LdapAuth {
          */
         groupSearchBase?: string;
         /**
-         * LDAP search filter for groups. The following literals are
-         * interpolated from the found user object: '{{dn}}' the property
-         * configured with groupDnProperty. Optionally you can also assign a
-         * function instead The found user is passed to the function and it
+         * LDAP search filter for groups. Place literal {{dn}} in the filter
+         * to have it replaced by the property defined with `groupDnProperty`
+         * of the found user object. Optionally you can also assign a
+         * function instead. The found user is passed to the function and it
          * should return a valid search filter for the group search.
          */
         groupSearchFilter?: string | GroupSearchFilterFunction;
         /**
-         * Scope of the search. Default: 'sub'
+         * Scope of the search. Default: sub
          */
         groupSearchScope?: Scope;
         /**
@@ -64,8 +74,8 @@ declare namespace LdapAuth {
         groupSearchAttributes?: string[];
 
         /**
-         * Property of user to bind against client e.g. 'name', 'email'.
-         * Default: 'dn'
+         * Property of the LDAP user object to use when binding to verify
+         * the password. E.g. name, email. Default: dn
          */
         bindProperty?: string;
         /**
