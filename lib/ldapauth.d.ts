@@ -24,7 +24,9 @@ declare namespace LdapAuth {
         /**
          * Admin connection DN, e.g. uid=myapp,ou=users,dc=example,dc=org.
          * If not given at all, admin client is not bound. Giving empty
-         * string may result in anonymous bind when allowed
+         * string may result in anonymous bind when allowed.
+         *
+         * Note: Not passed to ldapjs, it would bind automatically
          */
         bindDN?: string;
         /**
