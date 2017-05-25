@@ -42,8 +42,8 @@ Required ldapjs client options:
 
 ldapauth-fork options:
 
-  - `bindDn` - Admin connection DN, e.g. *uid=myapp,ou=users,dc=example,dc=org*. Optional. If not given at all, admin client is not bound. Giving empty string may result in anonymous bind when allowed.
-  - `bindCredentials` - Password for bindDn.
+  - `bindDN` - Admin connection DN, e.g. *uid=myapp,ou=users,dc=example,dc=org*. Optional. If not given at all, admin client is not bound. Giving empty string may result in anonymous bind when allowed.
+  - `bindCredentials` - Password for bindDN.
   - `searchBase` - The base DN from which to search for users by username. E.g. *ou=users,dc=example,dc=org*
   - `searchFilter` - LDAP search filter with which to find a user by username, e.g. *(uid={{username}})*. Use the literal *{{username}}* to have the given username interpolated in for the LDAP search.
   - `searchAttributes` - Optional, default all. Array of attributes to fetch from LDAP server.
@@ -81,7 +81,7 @@ Optional ldapjs options, see [ldapjs documentation](https://github.com/mcavage/n
 
 The LDAP authentication flow is usually:
 
-1. Bind the admin client using the given `bindDn` and `bindCredentials`
+1. Bind the admin client using the given `bindDN` and `bindCredentials`
 2. Use the admin client to search for the user by substituting `{{username}}` from the `searchFilter` with given username
 3. If user is found, verify the given password by trying to bind the user client with the found LDAP user object and given password
 4. If password was correct and group search options were provided, search for the groups of the user
@@ -94,7 +94,7 @@ var LdapAuth = require('ldapauth-fork');
 
 var ldap = new LdapAuth({
   url: 'ldaps://ldap.example.org:636',
-  bindDn: 'uid=myadminusername,ou=users,dc=example,dc=org',
+  bindDN: 'uid=myadminusername,ou=users,dc=example,dc=org',
   bindCredentials: 'mypassword',
   searchBase: 'ou=users,dc=example,dc=org',
   searchFilter: '(uid={{username}})',
