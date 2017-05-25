@@ -12,16 +12,16 @@ const log = new Logger({
 });
 
 const opts: LdapAuth.Options = {
-  url: "ldap://ldap.forumsys.com:389",
-  bindDN: "cn=read-only-admin,dc=example,dc=com",
-  bindCredentials: "password",
-  searchBase: "dc=example,dc=com",
-  searchFilter: "(uid={{username}})",
+  url: 'ldap://ldap.forumsys.com:389',
+  bindDN: 'cn=read-only-admin,dc=example,dc=com',
+  bindCredentials: 'password',
+  searchBase: 'dc=example,dc=com',
+  searchFilter: '(uid={{username}})',
   log: log,
   cache: true,
   includeRaw: true,
-  groupSearchFilter: "(member={{dn}})",
-  groupSearchBase: "dc=example,dc=com"
+  groupSearchFilter: '(member={{dn}})',
+  groupSearchBase: 'dc=example,dc=com'
 };
 
 const auth = new LdapAuth(opts);
