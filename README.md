@@ -94,7 +94,7 @@ var LdapAuth = require('ldapauth-fork');
 
 var ldap = new LdapAuth({
   url: 'ldaps://ldap.example.org:636',
-  bindDN: 'uid=myadminusername,ou=users,dc=example,dc=org',
+  bindDn: 'uid=myadminusername,ou=users,dc=example,dc=org',
   bindCredentials: 'mypassword',
   searchBase: 'ou=users,dc=example,dc=org',
   searchFilter: '(uid={{username}})',
