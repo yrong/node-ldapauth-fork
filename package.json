@@ -22,7 +22,7 @@
   "scripts": {
     "prepublish": "npm run lint",
     "lint": "eslint ./lib",
-    "lint:watch": "watch 'npm run lint' ./lib"
+    "lint:watch": "watch 'npm run lint' ./lib --wait 0.5"
   },
   "dependencies": {
     "@types/ldapjs": "^1.0.0",
