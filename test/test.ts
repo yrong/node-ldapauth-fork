@@ -1,11 +1,5 @@
 /**
  * A dummy manual test script
- *
- * To compile and run:
- *
- * npm install bunyan @types/bunyan typescript
- * cd test
- * ../node_modules/.bin/tsc && node test.js
  */
 import * as Logger from 'bunyan';
 import * as LdapAuth from '../lib/ldapauth';

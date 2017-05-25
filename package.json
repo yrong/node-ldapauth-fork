@@ -22,7 +22,9 @@
   "scripts": {
     "prepublish": "npm run lint",
     "lint": "eslint ./lib",
-    "lint:watch": "watch 'npm run lint' ./lib --wait 0.5"
+    "lint:watch": "watch 'npm run lint' ./lib --wait 0.5",
+    "pretest": "cd test && tsc",
+    "test": "cd test && node test.js"
   },
   "dependencies": {
     "@types/ldapjs": "^1.0.0",
@@ -32,7 +34,10 @@
     "lru-cache": "^4.0.2"
   },
   "devDependencies": {
+    "@types/bunyan": "0.0.36",
+    "bunyan": "^1.8.10",
     "eslint": "^3.19.0",
+    "typescript": "^2.3.3",
     "watch": "^1.0.2"
   }
 }
