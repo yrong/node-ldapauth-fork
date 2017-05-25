@@ -15,7 +15,7 @@ Multiple [ldapjs](http://ldapjs.org/) client options have been made available.
 ```javascript
 var LdapAuth = require('ldapauth-fork');
 var options = {
-  url: 'ldaps://ldap.example.com:636',
+  url: 'ldaps://ldap.example.org:636',
   ...
 };
 var auth = new LdapAuth(options);
@@ -28,33 +28,29 @@ auth.authenticate(username, password, function(err, user) { ... });
 auth.close(function(err) { ... })
 ```
 
+`LdapAuth` inherits from `EventEmitter`.
+
 ## Install
 
     npm install ldapauth-fork
-
-
-## License
-
-MIT. See "LICENSE" file.
-
 
 ## `LdapAuth` Config Options
 
 Required ldapjs client options:
 
-  - `url` - LDAP server URL, eg. *ldaps://ldap.example.com:663*
+  - `url` - LDAP server URL, eg. *ldaps://ldap.example.org:663*
 
 ldapauth-fork options:
 
-  - `bindDn` - Admin connection DN, e.g. 'uid=myapp,ou=users,o=example.com'. Optional. If not given at all, admin client is not bound. Giving empty string may result in anonymous bind when allowed.
+  - `bindDn` - Admin connection DN, e.g. *uid=myapp,ou=users,dc=example,dc=org*. Optional. If not given at all, admin client is not bound. Giving empty string may result in anonymous bind when allowed.
   - `bindCredentials` - Password for bindDn.
-  - `searchBase` - The base DN from which to search for users by username. E.g. *ou=users,o=example.com*
-  - `searchFilter` - LDAP search filter with which to find a user by username, e.g. *(uid={{username}})*. Use the literal *{{username}}* to have the given username be interpolated in for the LDAP search.
+  - `searchBase` - The base DN from which to search for users by username. E.g. *ou=users,dc=example,dc=org*
+  - `searchFilter` - LDAP search filter with which to find a user by username, e.g. *(uid={{username}})*. Use the literal *{{username}}* to have the given username interpolated in for the LDAP search.
   - `searchAttributes` - Optional, default all. Array of attributes to fetch from LDAP server.
-  - `bindProperty` - Optional, default *dn*. Property of user to bind against client e.g. *name*, *email*
+  - `bindProperty` - Optional, default *dn*. Property of the LDAP user object to use when binding to verify the password. E.g. *name*, *email*
   - `searchScope` -  Optional, default *sub*. Scope of the search, one of *base*, *one*, or *sub*.
 
-ldapauth-fork options can look for valid users groups too. Related options:
+ldapauth-fork can look for valid users groups too. Related options:
 
   - `groupSearchBase` - Optional. The base DN from which to search for groups. If defined, also `groupSearchFilter` must be defined for the search to work.
   - `groupSearchFilter` - Optional. LDAP search filter for groups. Place literal *{{dn}}* in the filter to have it replaced by the property defined with `groupDnProperty` of the found user object. Optionally you can also assign a function instead. The found user is passed to the function and it should return a valid search filter for the group search.
@@ -68,7 +64,7 @@ Other ldapauth-fork options:
   - `cache` - Optional, default false. If true, then up to 100 credentials at a time will be cached for 5 minutes.
   - `log` - Bunyan logger instance, optional. If given this will result in TRACE-level error logging for component:ldapauth. The logger is also passed forward to ldapjs.
 
-Optional ldapjs options, see [ldapjs documentation]:
+Optional ldapjs options, see [ldapjs documentation](https://github.com/mcavage/node-ldapjs/blob/v1.0.1/docs/client.md):
 
   - `tlsOptions` - Needed for TLS connection. See [Node.js documentation](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback)
   - `socketPath`
@@ -81,6 +77,15 @@ Optional ldapjs options, see [ldapjs documentation]:
   - `queueTimeout`
   - `queueDisable`
 
+## How it works
+
+The LDAP authentication flow is usually:
+
+1. Bind the admin client using the given `bindDn` and `bindCredentials`
+2. Use the admin client to search for the user by substituting `{{username}}` from the `searchFilter` with given username
+3. If user is found, verify the given password by trying to bind the user client with the found LDAP user object and given password
+4. If password was correct and group search options were provided, search for the groups of the user
+
 ## express/connect basicAuth example
 
 ```javascript
@@ -88,11 +93,11 @@ var basicAuth = require('basic-auth');
 var LdapAuth = require('ldapauth-fork');
 
 var ldap = new LdapAuth({
-  url: "ldaps://ldap.example.com:636",
-  bindDN: "uid=myadminusername,ou=users,o=example.com",
-  bindCredentials: "mypassword",
-  searchBase: "ou=users,o=example.com",
-  searchFilter: "(uid={{username}})",
+  url: 'ldaps://ldap.example.org:636',
+  bindDN: 'uid=myadminusername,ou=users,dc=example,dc=org',
+  bindCredentials: 'mypassword',
+  searchBase: 'ou=users,dc=example,dc=org',
+  searchFilter: '(uid={{username}})',
   reconnect: true
 });
 
@@ -118,5 +123,9 @@ var basicAuthMiddleware = function(req, res, next) {
   });
 };
 ```
+
+## License
+
+MIT
 
 `ldapauth-fork` has been partially sponsored by [Leonidas Ltd](https://leonidasoy.fi/opensource).
