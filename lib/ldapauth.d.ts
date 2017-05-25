@@ -87,30 +87,30 @@ declare namespace LdapAuth {
          */
         cache?: boolean;
     }
+}
 
-    class LdapAuth extends EventEmitter {
-        /**
-         * @constructor
-         * @param opts
-         */
-        constructor(opts: Options);
+declare class LdapAuth extends EventEmitter {
+    /**
+     * @constructor
+     * @param opts
+     */
+    constructor(opts: LdapAuth.Options);
 
-        /**
-         * Authenticate against LDAP server with given credentials
-         *
-         * @param username Username
-         * @param password Password
-         * @param callback Standard callback
-         */
-        authenticate(username: string, password: string, callback: Callback): void;
+    /**
+     * Authenticate against LDAP server with given credentials
+     *
+     * @param username Username
+     * @param password Password
+     * @param callback Standard callback
+     */
+    authenticate(username: string, password: string, callback: LdapAuth.Callback): void;
 
-        /**
-         * Unbind both admin and client connections
-         *
-         * @param callback Error callback
-         */
-        close(callback: ErrorCallback): void;
-    }
+    /**
+     * Unbind both admin and client connections
+     *
+     * @param callback Error callback
+     */
+    close(callback?: ErrorCallback): void;
 }
 
 export = LdapAuth;
