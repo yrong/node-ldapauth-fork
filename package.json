@@ -2,7 +2,7 @@
   "name": "ldapauth-fork",
   "version": "3.0.1",
   "main": "./lib/ldapauth.js",
-  "types": "./types/ldapauth.d.ts",
+  "types": "./lib/ldapauth.d.ts",
   "description": "Authenticate against an LDAP server",
   "author": "Vesa Poikajärvi <vesa.poikajarvi@iki.fi>",
   "license": "MIT",
