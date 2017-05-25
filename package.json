@@ -19,11 +19,19 @@
   "engines": {
     "node": ">=0.8.0"
   },
+  "scripts": {
+    "lint": "eslint ./lib",
+    "lint:watch": "watch 'npm run lint' ./lib"
+  },
   "dependencies": {
     "@types/ldapjs": "^1.0.0",
     "@types/node": "^7.0.21",
     "bcryptjs": "^2.4.0",
     "ldapjs": "^1.0.1",
     "lru-cache": "^4.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "watch": "^1.0.2"
   }
 }
