@@ -17,7 +17,11 @@ var opts = {
   "bindCredentials": "password",
   "searchBase": "dc=example,dc=com",
   "searchFilter": "(uid={{username}})",
-  "log": log
+  "log": log,
+  "cache": true,
+  "includeRaw": true,
+  "groupSearchFilter": "(member={{dn}})",
+  "groupSearchBase": "dc=example,dc=com",
 }
 
 var a = new LdapAuth(opts);
@@ -32,7 +36,14 @@ a.authenticate('riemann', 'password', function(err, user) {
   if (err) {
     console.warn('Error', err, user);
   } else {
-    console.dir(user, {depth: null});
+    console.dir(user);
   }
-  a.close();
+  a.authenticate('riemann', 'password', function(err, user) {
+    if (err) {
+      console.warn('Error', err, user);
+    } else {
+      console.dir(user);
+    }
+    a.close();
+  });
 });
