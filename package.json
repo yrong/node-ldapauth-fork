@@ -1,5 +1,5 @@
 {
-  "name": "ldapauth-fork",
+  "name": "ldapauth-fork-plus",
   "version": "4.0.0",
   "main": "./lib/ldapauth.js",
   "types": "./lib/ldapauth.d.ts",
