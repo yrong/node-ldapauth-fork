@@ -20,7 +20,6 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "prepublish": "npm run lint",
     "lint": "eslint ./lib",
     "lint:watch": "watch 'npm run lint' ./lib --wait 0.5",
     "pretest": "cd test && tsc",
